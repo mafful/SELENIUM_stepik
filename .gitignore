@@ -1,0 +1,11 @@
+# .gitignore template for Python projects
+*.pyc
+*.pyo
+__pycache__/
+.env
+*.env
+
+
+.DS_Store
+/паттерн_Наблюдатель/
+test.py
