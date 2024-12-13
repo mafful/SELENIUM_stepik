@@ -25,7 +25,7 @@ def click_button(browser):
     button.click()
 
 
-def browsing(link):
+def browsing(link, data):
     try:
         browser = webdriver.Chrome()
         browser.get(link)
@@ -47,7 +47,7 @@ def browsing(link):
 
 if __name__ == "__main__":
     link = "http://suninjuly.github.io/registration1.html"
-    browsing(link)
+    browsing(link, data)
     time.sleep(2)
     link = "http://suninjuly.github.io/registration2.html"
-    browsing(link)
+    browsing(link, data)
