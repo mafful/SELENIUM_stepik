@@ -17,6 +17,7 @@ class ProductPageLocators:
     )
     ORDERING_BOOK_TITLE = (By.CSS_SELECTOR, "div.col-sm-6.product_main > h1")
     ORDERING_BOOK_PRICE = (By.CSS_SELECTOR, "div.col-sm-6.product_main > p.price_color")
+    ALERT_ADDED_TITLE = (By.CSS_SELECTOR, 'div.alertinner strong')
     VIEW_BASKET_BUTTON = (By.CSS_SELECTOR, "p > a.btn.btn-info:first-of-type")
     ADDING_BOOK_TITLE = (By.CSS_SELECTOR, "h3 > a")
     ADDING_BOOK_PRICE = (By.CSS_SELECTOR, "p.price_color.align-right")

@@ -27,6 +27,12 @@ class ProductPage(BasePage):
         )
         add_to_basket_btn.click()
 
+    def check_title_being_added(self, expected_title):
+        title_being_added = self.browser.find_element(
+            *ProductPageLocators.ALERT_ADDED_TITLE
+        )
+        assert title_being_added.text == expected_title
+
     def view_basket(self):
         view_basket_btn = self.browser.find_element(
             *ProductPageLocators.VIEW_BASKET_BUTTON
