@@ -33,7 +33,7 @@ def wait_for_element_located_and_visible(browser, by, value, timeout=10, max_att
             return element
         except TimeoutException:
             print(f"Timeout: Element '{value}' not found within {timeout} seconds on attempt {attempt + 1}.")
-            time.sleep(1)
+            time.sleep(5)
             attempt += 1
         except Exception as e:
             print(f"An unexpected error occurred on attempt {attempt + 1}: {e}")
@@ -59,7 +59,7 @@ def wait_for_element_to_be_clickable_and_visible(browser, by, value, timeout=10,
             return element
         except TimeoutException:
             print(f"Timeout: Element '{value}' not found within {timeout} seconds on attempt {attempt + 1}.")
-            time.sleep(1)
+            time.sleep(5)
             attempt += 1
         except Exception as e:
             print(f"An unexpected error occurred on attempt {attempt + 1}: {e}")

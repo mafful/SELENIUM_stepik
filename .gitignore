@@ -9,3 +9,5 @@ __pycache__/
 .DS_Store
 /паттерн_Наблюдатель/
 test.py
+
+test_log.log
