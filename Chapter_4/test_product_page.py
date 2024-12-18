@@ -1,3 +1,4 @@
+from .pages.basket_page import BasketPage
 from .pages.product_page import ProductPage
 from .logger import logger
 from utilities_browsing import time_to_see
@@ -55,3 +56,18 @@ def test_guest_can_add_product_to_basket(browser):
 
     time_to_see(3)
     logger.info("Test passed: Book has been ordered with expected 'Title' and 'Price'.")
+
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/"
+    page = ProductPage(browser, link)
+    page.open()
+    time_to_see(3)
+
+    page.view_basket()
+    logger.info("Moved to basket page...")
+
+    page = BasketPage(browser, browser.current_url)
+    page.should_not_be_basket_items()
+    logger.info("Basket is empty!")
+    time_to_see(5)

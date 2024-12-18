@@ -33,12 +33,6 @@ class ProductPage(BasePage):
         )
         assert title_being_added.text == expected_title
 
-    def view_basket(self):
-        view_basket_btn = self.browser.find_element(
-            *ProductPageLocators.VIEW_BASKET_BUTTON
-        )
-        view_basket_btn.click()
-
     def check_adding_book_title(self, expected_title):
         book_element = self.browser.find_element(
             *ProductPageLocators.ADDING_BOOK_TITLE)
@@ -60,3 +54,5 @@ class ProductPage(BasePage):
         assert self.is_disappeared(
             *ProductPageLocators.ALERT_ADDED_TITLE
         ), "Success message has NOT disappeared as expected"
+
+
