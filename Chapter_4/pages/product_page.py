@@ -40,7 +40,8 @@ class ProductPage(BasePage):
         view_basket_btn.click()
 
     def check_adding_book_title(self, expected_title):
-        book_element = self.browser.find_element(*ProductPageLocators.ADDING_BOOK_TITLE)
+        book_element = self.browser.find_element(
+            *ProductPageLocators.ADDING_BOOK_TITLE)
         assert book_element.text == expected_title
 
     def check_adding_book_price(self, expected_price):
@@ -49,3 +50,13 @@ class ProductPage(BasePage):
         )
         price = price_element.text.replace("£", "").strip()
         assert price == expected_price
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(
+            *ProductPageLocators.ALERT_ADDED_TITLE
+        ), "Success message is presented, but should not be"
+
+    def should_disappear_within_certain_time(self):
+        assert self.is_disappeared(
+            *ProductPageLocators.ALERT_ADDED_TITLE
+        ), "Success message has NOT disappeared as expected"

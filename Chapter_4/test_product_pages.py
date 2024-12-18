@@ -4,12 +4,14 @@ from .pages.product_page import ProductPage
 from .logger import logger
 from utilities_browsing import time_to_see
 
-base_url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer"
+base_url = (
+    "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer"
+)
 links = [f"{base_url}{i}" for i in range(10)]
 
-@pytest.mark.parametrize('link', links)
-def test_guest_can_add_product_to_basket(browser, link):
 
+@pytest.mark.parametrize("link", links)
+def test_guest_can_add_product_to_basket(browser, link):
     try:
         page = ProductPage(
             browser, link
@@ -52,7 +54,9 @@ def test_guest_can_add_product_to_basket(browser, link):
         logger.info("Check price of adding book")
         page.check_adding_book_price(expected_price=ordering_book_price)
 
-        logger.info("Test passed: Book has been ordered with expected 'Title' and 'Price'.")
+        logger.info(
+            "Test passed: Book has been ordered with expected 'Title' and 'Price'."
+        )
 
     except Exception as e:
         logger.error(f"Unexpected error on link {link}: {e}")
