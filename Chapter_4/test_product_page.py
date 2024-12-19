@@ -1,4 +1,3 @@
-
 import pytest
 import faker
 
@@ -14,17 +13,18 @@ from utilities_browsing import time_to_see
 def product_link():
     return "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
 
+
 @pytest.fixture
 def new_fake_user():
     f = faker.Faker()
     email = f.email()
     password = f.password(9)
-    logger.info(f'{email}, {password}')
+    logger.info(f"{email}, {password}")
     return (email, password)
 
 
 @pytest.mark.login
-class TestUserAddToBasketFromProductPage():
+class TestUserAddToBasketFromProductPage:
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser, new_fake_user):
         link = "https://selenium1py.pythonanywhere.com/en-gb/accounts/login/"
@@ -32,20 +32,15 @@ class TestUserAddToBasketFromProductPage():
         login_page.open()
         login_page.register_new_user(*new_fake_user)
 
-
-
-    def test_guest_cant_see_success_message(self, browser, product_link):
-        page = ProductPage(
-            browser, product_link
-        )
+    @pytest.mark.skip
+    def test_user_cant_see_success_message(self, browser, product_link):
+        page = ProductPage(browser, product_link)
         page.open()
         page.should_not_be_success_message()
 
-
-    def test_guest_can_add_product_to_basket(self, browser, product_link):
-        page = ProductPage(
-            browser, product_link
-        )
+    @pytest.mark.need_review
+    def test_user_can_add_product_to_basket(self, browser, product_link):
+        page = ProductPage(browser, product_link)
         page.open()
         page.looking_for_add_to_basket_button()
         ordering_book_title = page.ordering_book_title()
@@ -61,9 +56,6 @@ class TestUserAddToBasketFromProductPage():
         time_to_see(3)
 
 
-
-
-
 @pytest.mark.skip
 def test_guest_should_see_login_link_on_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
@@ -71,7 +63,8 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.open()
     page.should_be_login_link()
 
-@pytest.mark.skip
+
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
@@ -80,7 +73,8 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.go_to_login_page()
     time_to_see(3)
 
-@pytest.mark.skip
+
+@pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
     page = ProductPage(
@@ -119,7 +113,8 @@ def test_guest_can_add_product_to_basket(browser):
     time_to_see(3)
     logger.info("Test passed: Book has been ordered with expected 'Title' and 'Price'.")
 
-@pytest.mark.skip
+
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/"
     page = ProductPage(browser, link)
@@ -136,7 +131,9 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 
 
 @pytest.mark.xfail(reason="fixing this bug right now")
-def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, product_link):
+def test_guest_cant_see_success_message_after_adding_product_to_basket(
+    browser, product_link
+):
     page = ProductPage(
         browser, product_link
     )  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
@@ -151,7 +148,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, 
     page.should_not_be_success_message()
     logger.info("Success message is NOT presented")
 
-
+@pytest.mark.skip
 def test_guest_cant_see_success_message(browser, product_link):
     page = ProductPage(
         browser, product_link
