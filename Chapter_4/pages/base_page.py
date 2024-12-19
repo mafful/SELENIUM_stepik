@@ -8,7 +8,7 @@ from selenium.common.exceptions import (
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from .locators import BasePageLocators, BasketPageLocators
+from .locators import BasePageLocators
 from ..logger import logger
 
 
@@ -50,11 +50,17 @@ class BasePage:
         return True
 
     def get_choosing_language(self):
-        choosing_lang = self.browser.find_element(
-            *BasePageLocators.CHOOSING_LANGUAGE
-        )
-        return choosing_lang.get_attribute('value')
+        choosing_lang = self.browser.find_element(*BasePageLocators.CHOOSING_LANGUAGE)
+        return choosing_lang.get_attribute("value")
 
+    def should_be_authorized_user(self):
+        user_authorised_locator = (
+            BasePageLocators.USER_ICON[0],
+            BasePageLocators.USER_ICON[1].format(self.get_choosing_language()),
+        )
+        assert self.is_element_present(*user_authorised_locator), (
+            "User icon is not presented," " probably unauthorised user"
+        )
 
     def should_be_login_link(self):
         assert self.is_element_present(
@@ -62,9 +68,7 @@ class BasePage:
         ), "Login link is not presented"
 
     def get_login_url(self):
-        login_link_element = self.browser.find_element(
-            *BasePageLocators.LOGIN_LINK
-        )
+        login_link_element = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         return login_link_element.get_attribute("href")
 
     def go_to_login_page(self):
@@ -72,7 +76,10 @@ class BasePage:
         link.click()
 
     def view_basket(self):
-        basket_button_locator = BasePageLocators.VIEW_BASKET_BUTTON[0], BasePageLocators.VIEW_BASKET_BUTTON[1].format(self.get_choosing_language())
+        basket_button_locator = (
+            BasePageLocators.VIEW_BASKET_BUTTON[0],
+            BasePageLocators.VIEW_BASKET_BUTTON[1].format(self.get_choosing_language()),
+        )
         view_basket_btn = self.browser.find_element(*basket_button_locator)
         view_basket_btn.click()
 
@@ -90,6 +97,3 @@ class BasePage:
             alert.accept()
         except NoAlertPresentException:
             logger.error("No second alert presented")
-
-
-
